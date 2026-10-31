@@ -1,4 +1,4 @@
-FROM node:24.22.1-slim AS builder
+FROM node:22-slim AS builder
 WORKDIR /app
 
 RUN apt-get update \
@@ -13,7 +13,7 @@ RUN if [ -f package-lock.json ]; then npm ci --no-audit --no-fund; else npm inst
 COPY . ./
 RUN mkdir -p /app/data && npm run build -- --webpack
 
-FROM node:24.22.1-slim AS runner-base
+FROM node:22-slim AS runner-base
 WORKDIR /app
 
 LABEL org.opencontainers.image.title="omniroute" \
